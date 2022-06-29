@@ -1,11 +1,13 @@
 package com.example.BBVApruebaNNData.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 @Getter
 @Setter
+@AllArgsConstructor
 @Entity
 @Table(name ="users")
 public class User {
@@ -29,7 +31,7 @@ public class User {
     @Column( length = 40)
     private String city;
 
-   @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+   @ManyToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private DocumentType documentType;
 
     public User(int i, String oscar, String jesus, String sanabria, String tavera, int i1, int i2, String s, String kennedy, DocumentType documentType) {
@@ -37,6 +39,9 @@ public class User {
     }
 
     public User() {
+        
+    }
 
+    public User(int i, String oscar, String jesus, String sanabria, String tavera, int i1, int i2, String s, String kennedy, int i3) {
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class DocumentTypeServiceImpl implements IDocumentTypeService{
 @Autowired
@@ -20,6 +22,10 @@ public class DocumentTypeServiceImpl implements IDocumentTypeService{
 
     @Override
     public DocumentType saveDocumentType(DocumentType documentType) {
+        Optional<DocumentType> savedDocumentTypt = documentTypeRepository.findById(documentType.getId());
+        if(savedDocumentTypt.isPresent()){
+             new ResourceNotFoundException("Document type already exist with given email:" + documentType.getId());
+        }
         return documentTypeRepository.save(documentType);
     }
 

@@ -62,7 +62,7 @@ public class DocumentTypeController {
             return new ResponseEntity<DocumentType>(HttpStatus.NOT_FOUND);
         }
         documentTypeService.deleteDocumentType(id);
-        return new ResponseEntity<DocumentType>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<DocumentType>(HttpStatus.OK);
     }
  // @GetMapping("documents/")
 

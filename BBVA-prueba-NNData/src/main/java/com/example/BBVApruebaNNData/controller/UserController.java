@@ -15,16 +15,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserServiceImpl userService;
-    User userTest =new User(1,
-            "oscar",
-            "jesus",
-            "sanabria",
-            "tavera",
-            31329746,
-            23445322,
-            "calle-40",
-            "kennedy" ,
-            new DocumentType(1,"P"));
 
     @GetMapping("/users/searchUser")
     public ResponseEntity<List<User>> searchUserC(@Param("identicationFilter") String filter) throws Exception {
@@ -43,15 +33,6 @@ public class UserController {
     @PostMapping("/users/add")
     public ResponseEntity<User> saveUserC(@RequestBody User user){
      try {
-         user.setFirstName(userTest.getFirstName());
-         user.setSecondName(userTest.getSecondName());
-         user.setFirstLastName(userTest.getFirstLastName());
-         user.setSecondLastName(userTest.getSecondLastName());
-         user.setPhoneNumber(userTest.getPhoneNumber());
-         user.setIdentification(userTest.getIdentification());
-         user.setAddress(userTest.getAddress());
-         user.setCity(userTest.getCity());
-         user.setDocumentType(userTest.getDocumentType());
          userService.saveUser(user);
      }catch (Exception e){
          return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
