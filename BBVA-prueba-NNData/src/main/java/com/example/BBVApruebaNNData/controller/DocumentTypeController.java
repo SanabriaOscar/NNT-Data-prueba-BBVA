@@ -1,6 +1,7 @@
 package com.example.BBVApruebaNNData.controller;
 
 import com.example.BBVApruebaNNData.model.DocumentType;
+import com.example.BBVApruebaNNData.model.User;
 import com.example.BBVApruebaNNData.service.DocumentTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,32 +16,55 @@ public class DocumentTypeController {
     private DocumentTypeServiceImpl documentTypeService;
 
     @GetMapping("/documents")
-    public List<DocumentType> listAllDocumentsC(){
-        return documentTypeService.listAllDocuments();
+    public ResponseEntity<DocumentType> listAllDocumentsC(){
+        List<DocumentType> documents = documentTypeService.listAllDocuments();
+        return new ResponseEntity(documents, HttpStatus.OK);
+
     }
     @PostMapping("/documents/add")
     public ResponseEntity<DocumentType> saveDocumentC(@RequestBody DocumentType documentType){
-        documentTypeService.saveDocumentType(documentType);
-        return new ResponseEntity<DocumentType>(documentType,null, HttpStatus.CREATED);
+       try {
+           documentTypeService.saveDocumentType(documentType);
+           return new ResponseEntity<DocumentType>(documentType, null, HttpStatus.CREATED);
+       }catch (Exception e){
+           return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+       }
     }
 
 
     @GetMapping("/documents/{id}")
     public ResponseEntity<DocumentType> listDocumentByIdC(@PathVariable int id) {
-    DocumentType documentType=documentTypeService.findByIdDocumentType(id);
-        return ResponseEntity.ok(documentType);
+        DocumentType documentType= documentTypeService.findByIdDocumentType(id);
+        if (null == documentType) {
+            return new ResponseEntity<DocumentType>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<DocumentType>(documentType, HttpStatus.OK);
     }
     @PutMapping("/documents/edit/{id}")
     public ResponseEntity<DocumentType> updateDocumentByIdC(@PathVariable int id, @RequestBody DocumentType documentType) {
-        DocumentType documentUpdate= documentTypeService.findByIdDocumentType(id);
-       documentUpdate.setName(documentType.getName());
-        return ResponseEntity.ok(documentUpdate);
+      try{
+          DocumentType documentUpdate= documentTypeService.findByIdDocumentType(id);
+          if (null == documentUpdate) {
+              return new ResponseEntity<DocumentType>(HttpStatus.NOT_FOUND);
+          }
+          documentUpdate.setName(documentType.getName());
+          documentTypeService.saveDocumentType(documentType);
+        return new ResponseEntity<DocumentType>(documentUpdate, HttpStatus.OK);
+
+      }catch (Exception e){
+          return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+      }
     }
     @DeleteMapping("/documents/delete/{id}")
-    public ResponseEntity<?> deleteDocumentTypeC(@PathVariable int id){
-       documentTypeService.deleteDocumentType(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<DocumentType> deleteDocumentTypeC(@PathVariable int id){
+        DocumentType documentType= documentTypeService.findByIdDocumentType(id);
+        if (null == documentType) {
+            return new ResponseEntity<DocumentType>(HttpStatus.NOT_FOUND);
+        }
+        documentTypeService.deleteDocumentType(id);
+        return new ResponseEntity<DocumentType>(HttpStatus.NO_CONTENT);
     }
+ // @GetMapping("documents/")
 
 
 

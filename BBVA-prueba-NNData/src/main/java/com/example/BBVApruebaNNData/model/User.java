@@ -1,7 +1,11 @@
 package com.example.BBVApruebaNNData.model;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+@Getter
+@Setter
 @Entity
 @Table(name ="users")
 public class User {
@@ -19,7 +23,7 @@ public class User {
     @Column( length = 60)
     private  int phoneNumber;
     @Column( length = 40)
-    private  int identification;
+    private  String identification;
     @Column( length = 40)
     private  String address;
     @Column( length = 40)
@@ -32,83 +36,7 @@ public class User {
 
     }
 
-    public int getId() {
-        return id;
-    }
+    public User() {
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
-
-    public String getFirstLastName() {
-        return firstLastName;
-    }
-
-    public void setFirtLastName(String firstLastName) {
-        this.firstLastName = firstLastName;
-    }
-
-    public String getSecondLastName() {
-        return secondLastName;
-    }
-
-    public void setSecondLastName(String secondLastName) {
-        this.secondLastName = secondLastName;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getIdentification() {
-        return identification;
-    }
-
-    public void setIdentification(int identification) {
-        this.identification = identification;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public DocumentType getDocumentType() {
-        return documentType;
-    }
-
-    public void setDocumentType(DocumentType documentType) {
-        this.documentType = documentType;
     }
 }

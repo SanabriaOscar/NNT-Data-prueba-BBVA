@@ -1,13 +1,11 @@
 package com.example.BBVApruebaNNData.service;
 
-import com.example.BBVApruebaNNData.exceptions.RecordAlreadyExits;
 import com.example.BBVApruebaNNData.model.User;
 import com.example.BBVApruebaNNData.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements IUserService{
@@ -32,7 +30,20 @@ public class UserServiceImpl implements IUserService{
 
 
     @Override
-    public void deleteUser(int id) {
+    public User deleteUser(int id) {
         userRepository.deleteById(id);
+        return null;
     }
+
+    @Override
+    public List<User> searchUser(String identicationFilter) {
+
+        User user = null;
+        if (identicationFilter != null) {
+            user = (User) userRepository.findUserByIdentification(identicationFilter);
+        }
+        return (List<User>) user;
+    }
+
 }
+

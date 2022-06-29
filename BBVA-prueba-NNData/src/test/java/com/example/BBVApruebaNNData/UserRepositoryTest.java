@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
@@ -73,7 +74,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void listTaskBYID() {
+    public void listUserBYID() {
         User user = new User(1,
                 "oscar",
                 "jesus",
@@ -84,13 +85,13 @@ public class UserRepositoryTest {
                 "calle-40",
                 "kennedy" ,
                 new DocumentType(1,"N"));
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        when(userRepository.findById(user.getId())).thenReturn(of(user));
         User expected = userService.findByIdUser(user.getId());
         assertThat(expected).isSameAs(user);
         verify(userRepository).findById(user.getId());
     }
     @Test
-    public void deleteTaskTest(){
+    public void deleteUserTest(){
         User user = new User(1,
                 "oscar",
                 "jesus",
@@ -101,7 +102,7 @@ public class UserRepositoryTest {
                 "calle-40",
                 "kennedy" ,
                 new DocumentType(1,"N"));
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        when(userRepository.findById(user.getId())).thenReturn(of(user));
         userService.deleteUser(user.getId());
         verify(userRepository).deleteById(user.getId());
     }
