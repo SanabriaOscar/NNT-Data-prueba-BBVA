@@ -15,16 +15,7 @@ public class UserServiceImpl implements IUserService{
 
 @Autowired
     private UserRepository userRepository;
-    User userTest =new User(1,
-            "oscar",
-            "jesus",
-            "sanabria",
-            "tavera",
-            31329746,
-            23445322,
-            "calle-40",
-            "kennedy" ,
-            new DocumentType(1,"P"));
+
     @Override
     public List<User> listAllUsers() {
         return userRepository.findAll();
@@ -36,15 +27,6 @@ public class UserServiceImpl implements IUserService{
         if(savedUser.isPresent()){
             new ResourceNotFoundException("User already exist with given email:" + user.getId());
         }
-        user.setFirstName(userTest.getFirstName());
-        user.setSecondName(userTest.getSecondName());
-        user.setFirstLastName(userTest.getFirstLastName());
-        user.setSecondLastName(userTest.getSecondLastName());
-        user.setPhoneNumber(userTest.getPhoneNumber());
-        user.setIdentification(userTest.getIdentification());
-        user.setAddress(userTest.getAddress());
-        user.setCity(userTest.getCity());
-        user.setDocumentType(userTest.getDocumentType());
         return userRepository.save(user);
     }
 
@@ -64,11 +46,11 @@ public class UserServiceImpl implements IUserService{
     @Override
     public List<User> searchUser(String identicationFilter) {
 
-        User user = null;
+
         if (identicationFilter != null) {
-            user = (User) userRepository.findUserByIdentification(identicationFilter);
+            return userRepository.findUserByIdentification(identicationFilter);
         }
-        return (List<User>) user;
+        return null;
     }
 
 }

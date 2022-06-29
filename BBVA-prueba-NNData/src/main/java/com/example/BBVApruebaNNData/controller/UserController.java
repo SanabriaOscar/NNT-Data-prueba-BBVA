@@ -1,6 +1,5 @@
 package com.example.BBVApruebaNNData.controller;
 
-import com.example.BBVApruebaNNData.model.DocumentType;
 import com.example.BBVApruebaNNData.model.User;
 import com.example.BBVApruebaNNData.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,16 @@ public class UserController {
     private UserServiceImpl userService;
 
     @GetMapping("/users/searchUser")
-    public ResponseEntity<List<User>> searchUserC(@Param("identicationFilter") String filter) throws Exception {
+    public ResponseEntity<?> searchUserC(@Param("identicationFilter") String filter) throws Exception {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(userService.searchUser(filter));
         }catch (Exception e){
-            return (ResponseEntity<List<User>>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(("{\"error\": \""
+                    +e.getMessage()+"\"}"));
         }
     }
+
+
     @GetMapping("/users")
     public ResponseEntity<User> listAllUsers() {
         List<User> users = userService.listAllUsers();
