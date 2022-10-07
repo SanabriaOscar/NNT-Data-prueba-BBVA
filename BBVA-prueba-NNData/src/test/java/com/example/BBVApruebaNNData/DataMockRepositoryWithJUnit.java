@@ -31,7 +31,7 @@ public class DataMockRepositoryWithJUnit {
                 31329746,
                 23445322,
                 "calle-40",
-                "kennedy", 1);
+                "kennedy", new DocumentType(1,"U"));
 
         User userSaved=userRepository.save(user);
         assertNotNull(userSaved);

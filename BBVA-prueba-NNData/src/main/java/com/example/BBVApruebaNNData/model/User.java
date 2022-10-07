@@ -34,7 +34,7 @@ public class User {
    @ManyToOne(optional = true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private DocumentType documentType;
 
-    public User(int i, String oscar, String jesus, String sanabria, String tavera, int i1, int i2, String s, String kennedy, DocumentType documentType) {
+    public User(int id, String firstName, String secondName, String firstLastName, String secondLastName, int phoneNumber, int identification, String address, String city, DocumentType documentType) {
 
     }
 
@@ -42,6 +42,4 @@ public class User {
         
     }
 
-    public User(int i, String oscar, String jesus, String sanabria, String tavera, int i1, int i2, String s, String kennedy, int i3) {
-    }
 }
